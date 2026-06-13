@@ -1,90 +1,193 @@
-# Blog CMS — Full Stack MERN Application
 
-A full-featured blog content management system built with MongoDB, Express, React, and Node.js.
+# WriteNest
 
-## Features
+A full-stack **Multi-Author Blogging Platform** built using the MERN Stack. WriteNest enables users to create, publish, and manage blog content through a secure role-based system supporting Admins, Authors, and Readers.
 
-- JWT authentication (register/login) with role-based access (admin, author, reader)
-- Create, edit, delete, and publish blog posts (draft/published states)
-- Rich post metadata: tags, categories, cover images, excerpts
-- Image uploads for post cover images
-- Full-text search and pagination
-- Comments and like/unlike on posts
-- View counters
-- Author dashboard to manage own posts; admin can manage all
-- Protected routes and role-based UI on the frontend
+## 🚀 Features
 
-## Tech Stack
+### Authentication & Authorization
 
-- **Frontend:** React 18, React Router, Axios, Vite
-- **Backend:** Node.js, Express, JWT, bcrypt, Multer
-- **Database:** MongoDB with Mongoose
+* JWT-based Authentication
+* Secure Password Hashing with bcrypt
+* Role-Based Access Control (Admin, Author, Reader)
+* Protected Routes
 
-## Project Structure
+### Blog Management
 
-```
-blog-cms/
+* Create, Edit, Delete, and Publish Blog Posts
+* Draft & Published Post States
+* Rich Post Metadata (Categories, Tags, Excerpts)
+* Cover Image Upload Support
+* Author Dashboard for Managing Posts
+
+### User Engagement
+
+* Comment System
+* Like / Unlike Posts
+* View Counters
+* Author Profiles
+
+### Search & Discovery
+
+* Full-Text Search
+* Category-Based Filtering
+* Pagination
+* Recent Posts Feed
+
+### Admin Controls
+
+* Manage All Posts
+* Manage Users and Roles
+* Content Moderation
+
+---
+
+## 🛠 Tech Stack
+
+### Frontend
+
+* React.js
+* React Router
+* Axios
+* Vite
+* CSS
+
+### Backend
+
+* Node.js
+* Express.js
+* JWT Authentication
+* bcrypt.js
+* Multer
+
+### Database
+
+* MongoDB
+* Mongoose
+
+---
+
+## 📂 Project Structure
+
+```text
+writenest/
 ├── backend/
-│   ├── config/        # DB connection
-│   ├── middleware/     # auth, error handling, file upload
-│   ├── models/         # User, Post (Mongoose schemas)
-│   ├── routes/         # auth, posts, users, upload
-│   ├── uploads/         # uploaded images
+│   ├── config/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── uploads/
 │   ├── server.js
 │   └── package.json
+│
 └── frontend/
     ├── src/
-    │   ├── api/         # axios instance
-    │   ├── components/  # Navbar, PostCard, PrivateRoute
-    │   ├── context/      # AuthContext
-    │   ├── pages/        # Home, Login, Register, PostDetail, Dashboard, Editor
+    │   ├── api/
+    │   ├── components/
+    │   ├── context/
+    │   ├── pages/
     │   └── App.jsx
+    │
     └── package.json
 ```
 
-## Setup & Run
+---
 
-### 1. Backend
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Nishtha1311/writenest.git
+cd writenest
+```
+
+### Backend Setup
 
 ```bash
 cd backend
 npm install
-cp .env.example .env   # then edit MONGO_URI / JWT_SECRET as needed
-npm run dev            # starts on http://localhost:5000
 ```
 
-Requires a running MongoDB instance (local or Atlas).
+Create a `.env` file:
 
-### 2. Frontend
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+```
+
+Start Backend Server:
+
+```bash
+npm run dev
+```
+
+### Frontend Setup
 
 ```bash
 cd frontend
 npm install
-npm run dev            # starts on http://localhost:5173
+npm run dev
 ```
 
-The Vite dev server proxies `/api` and `/uploads` requests to the backend.
+Frontend runs on:
 
-## API Overview
+```text
+http://localhost:5173
+```
 
-| Method | Endpoint                  | Description                     | Auth          |
-|--------|---------------------------|----------------------------------|---------------|
-| POST   | /api/auth/register         | Register a new user              | Public        |
-| POST   | /api/auth/login             | Login                             | Public        |
-| GET    | /api/auth/me                | Get current user                  | Private       |
-| GET    | /api/posts                  | List posts (search/pagination)   | Public        |
-| GET    | /api/posts/:slug            | Get single post                   | Public        |
-| POST   | /api/posts                  | Create post                       | Author/Admin  |
-| PUT    | /api/posts/:id              | Update post                       | Author/Admin  |
-| DELETE | /api/posts/:id              | Delete post                       | Author/Admin  |
-| POST   | /api/posts/:id/comments      | Add comment                       | Private       |
-| PUT    | /api/posts/:id/like           | Toggle like                       | Private       |
-| POST   | /api/upload                  | Upload an image                   | Private       |
-| GET    | /api/users                    | List all users                    | Admin         |
-| PUT    | /api/users/:id/role           | Change user role                  | Admin         |
-| PUT    | /api/users/profile             | Update own profile                | Private       |
+Backend runs on:
 
-## Notes for Resume
+```text
+http://localhost:5000
+```
 
-- Demonstrates full CRUD, authentication/authorization, role-based access control, file uploads, search/pagination, and a responsive React frontend.
-- To deploy: host backend on Render/Railway, frontend on Vercel/Netlify, and database on MongoDB Atlas.
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint                | Description     | Access       |
+| ------ | ----------------------- | --------------- | ------------ |
+| POST   | /api/auth/register      | Register User   | Public       |
+| POST   | /api/auth/login         | Login User      | Public       |
+| GET    | /api/auth/me            | Current User    | Private      |
+| GET    | /api/posts              | Get All Posts   | Public       |
+| GET    | /api/posts/:slug        | Get Single Post | Public       |
+| POST   | /api/posts              | Create Post     | Author/Admin |
+| PUT    | /api/posts/:id          | Update Post     | Author/Admin |
+| DELETE | /api/posts/:id          | Delete Post     | Author/Admin |
+| POST   | /api/posts/:id/comments | Add Comment     | Private      |
+| PUT    | /api/posts/:id/like     | Toggle Like     | Private      |
+| POST   | /api/upload             | Upload Image    | Private      |
+| GET    | /api/users              | Get Users       | Admin        |
+| PUT    | /api/users/:id/role     | Change Role     | Admin        |
+| PUT    | /api/users/profile      | Update Profile  | Private      |
+
+---
+
+## 🎯 Learning Outcomes
+
+This project demonstrates:
+
+* Full-Stack MERN Development
+* REST API Design
+* Authentication & Authorization
+* Role-Based Access Control (RBAC)
+* MongoDB Data Modeling
+* CRUD Operations
+* Search & Pagination
+* File Upload Handling
+* Frontend-Backend Integration
+
+---
+
+## 👩‍💻 Author
+
+**Nishtha Vatsa**
+
+GitHub: https://github.com/Nishtha1311
+
+---
+
+
